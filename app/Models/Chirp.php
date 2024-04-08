@@ -13,6 +13,7 @@ class Chirp extends Model
 
     protected $fillable = [
         'message',
+        'amount'
     ];
 
     protected $dispatchesEvents = [

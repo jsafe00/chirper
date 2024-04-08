@@ -8,9 +8,24 @@
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
             >{{ old('message') }}</textarea>
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
+
+            <label for="amount" class="block text-sm font-medium text-gray-700">Number Input</label>
+            <input
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder="{{ __('Enter a number') }}"
+                class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                value="{{ old('amount') }}"
+                step="any"
+            />
+            <x-input-error :messages="$errors->get('amount')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
         </form>
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
+            @php
+                $totalAmount = 0; 
+            @endphp
             @foreach ($chirps as $chirp)
                 <div class="p-6 flex space-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -51,9 +66,16 @@
                             @endif
                             </div>
                         <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
+                        <p class="mt-4 text-lg text-gray-900">{{ $chirp->amount }}</p>
                     </div>
                 </div>
+                @php
+                    $totalAmount += $chirp->amount;
+                @endphp
             @endforeach
+        </div>
+        <div class="mt-4 text-lg text-gray-900">
+            Total Amount: {{ $totalAmount }}
         </div>
     </div>
 </x-app-layout>

@@ -36,6 +36,7 @@ class ChirpController extends Controller
     {
         $validated = $request->validate([
             'message' => 'required|string|max:255',
+            'amount' => 'required|numeric',
         ]);
  
         $request->user()->chirps()->create($validated);
@@ -72,6 +73,7 @@ class ChirpController extends Controller
  
         $validated = $request->validate([
             'message' => 'required|string|max:255',
+            'amount' => 'required|numeric',
         ]);
  
         $chirp->update($validated);
